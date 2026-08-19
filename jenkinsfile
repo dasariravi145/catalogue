@@ -34,9 +34,24 @@ pipeline {
 
                 steps {
                     script{
-                        
+
                        sh  """
                             npm install
+                       """
+                    }
+                }
+                  
+            }
+
+
+             # install dependencies
+            stage('Build Image'){
+
+                steps {
+                    script{
+                        
+                       sh  """
+                            docker build -t catalog:${appVersion} .
                        """
                     }
                 }
