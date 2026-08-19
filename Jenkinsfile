@@ -40,7 +40,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 sh """
-                    sudo docker build -t catalogue:${appVersion} .
+                    docker build -t catalogue:${appVersion}
                 """
             }
         }
