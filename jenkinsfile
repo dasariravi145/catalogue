@@ -1,0 +1,47 @@
+pipeline {
+
+      agent {
+         
+           node {
+
+                label 'roboshop'           }
+      }
+      environment {
+
+           appVersion = ''
+      }
+
+      options {
+          timeout(time: 5, unit: 'MINUTES')
+
+      }
+      stages {
+
+            stage('READ Version') {
+
+                steps {
+
+                      script {
+
+                          def packageJson = readJSON file: 'package.json'
+                          def appVersion = packageJson.version
+                          echo "Building  with version ${appVersion}"
+                      }
+                }
+                 
+            }
+            stage('Install Dependencies'){
+
+                steps {
+                    script{
+                        
+                       sh  """
+                            npm install
+                       """
+                    }
+                }
+                  
+            }
+
+      }
+}
