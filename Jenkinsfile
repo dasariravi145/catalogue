@@ -28,7 +28,7 @@ pipeline {
 
                 withCredentials([
                     string(
-                        credentialsId: 'dasariravi145',
+                        credentialsId: 'https://github.com/dasariravi145/catalogue.git',
                         variable: 'GITHUB_TOKEN'
                     )
                 ]) {
@@ -46,7 +46,6 @@ pipeline {
 
                         echo "GitHub API response received."
 
-                        # Check whether GitHub returned an API error
                         API_MESSAGE=$(echo "$RESPONSE" | jq -r '.message // empty')
 
                         if [ -n "$API_MESSAGE" ]; then
@@ -68,7 +67,7 @@ pipeline {
 
                             echo "$RESPONSE" | jq -r '
                                 .[] |
-                                "Alert #\\(.number) | Severity: \\(.security_advisory.severity) | Package: \\(.dependency.package.name) | \\(.security_advisory.summary)"
+                                "Alert #\(.number) | Severity: \(.security_advisory.severity) | Package: \(.dependency.package.name) | \(.security_advisory.summary)"
                             '
 
                             echo ""
@@ -80,7 +79,7 @@ pipeline {
                         echo ""
                         echo "=========================================="
                         echo "SECURITY CHECK PASSED"
-                        echo "No High/Critical Dependabot alerts found."
+                        echo "No High/Critical Dependabot vulnerabilities found."
                         echo "=========================================="
                     '''
                 }
