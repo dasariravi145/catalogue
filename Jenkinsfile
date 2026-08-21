@@ -28,7 +28,7 @@ pipeline {
 
                 withCredentials([
                     string(
-                        credentialsId: 'https://github.com/dasariravi145/catalogue.git',
+                        credentialsId: 'jenkins-scan',
                         variable: 'GITHUB_TOKEN'
                     )
                 ]) {
