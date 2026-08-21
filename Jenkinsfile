@@ -1,6 +1,10 @@
 pipeline {
 
-    agent any
+    agent {
+        node {
+            label 'roboshop'
+        }
+    }
 
     options {
         timeout(time: 5, unit: 'MINUTES')
